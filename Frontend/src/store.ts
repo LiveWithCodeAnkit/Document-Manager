@@ -29,7 +29,7 @@ export const useDocumentsStore = create<any>((set: any) => ({
       // toast.success('Documents loaded successfully');
     } catch (error) {
       console.error("Error loading documents:", error);
-      toast.error("Failed to load documents");
+     // toast.error("Failed to load documents");
     } finally {
       set({ loading: false }); // End loading
     }
