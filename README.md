@@ -1,133 +1,78 @@
-# Full Stack Application
+# FastAPI + SQLAlchemy + Supabase Backend
 
-This repository contains a full stack application with a **FastAPI** backend and a **Vite + React + TypeScript** frontend.
+This project sets up a backend server using **Python** and **FastAPI**, with **SQLAlchemy** for ORM, and **Supabase** (PostgreSQL) as the database. This guide will take you through the setup process step by step.
 
-## Table of Contents
+## Prerequisites
 
-1. [Overview](#overview)
-2. [Tech Stack](#tech-stack)
-3. [Getting Started](#getting-started)
-4. [Project Structure](#project-structure)
-5. [Contributing](#contributing)
-6. [License](#license)
-
-## Overview
-
-The application is designed to provide a seamless integration between a FastAPI backend and a React frontend. The backend uses SQLAlchemy for ORM and Supabase (PostgreSQL) as the database, while the frontend is built with Vite, React, and TypeScript.
-
-## Tech Stack
-
-### Backend
-
-- **FastAPI** - Modern, fast (high-performance) web framework for building APIs with Python 3.8+
-- **SQLAlchemy** - SQL toolkit and ORM for Python
-- **Supabase** - PostgreSQL database as a service
-
-### Frontend
-
-- **Vite** - Next-generation, fast build tool for React apps
-- **React** - JavaScript library for building user interfaces
-- **TypeScript** - JavaScript with type safety
-- **Axios** - Promise-based HTTP client for making API requests
-
-## Getting Started
-
-### Prerequisites
-
-- **Node.js** and **npm** for the frontend
-- **Python 3.8+** and **pip** for the backend
+- **Python 3.8+**
 - **PostgreSQL** (Supabase Cloud)
+- **pip** (Python package installer)
 
-### Setup Instructions
+## Setup Instructions
 
-#### Backend
+### 1. Clone the Repository
 
-1. **Clone the Repository**
+First, clone the project repository to your local machine:
 
-   ```bash
-   git clone https://github.com/yourusername/yourprojectname.git
-   cd yourprojectname/Backend
-   ```
+```bash
+git clone https://github.com/yourusername/yourprojectname.git
+cd yourprojectname
+```
 
-2. **Set Up Environment Variables**
+### 2. Set Up Environment Variables
 
-   Create a `.env` file and add your `DATABASE_URL`:
+Create a `.env` file and add your `DATABASE_URL`:
 
-   ```
-   DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database>
-   ```
+```
+DATABASE_URL=postgresql://<username>:<password>@<host>:<port>/<database>
+```
 
-3. **Create a Virtual Environment**
+### 3. Create a Virtual Environment
 
-   ```bash
-   python -m venv venv
-   ```
+Create and activate a virtual environment:
 
-   Activate the virtual environment:
+```bash
+python -m venv venv
+```
 
-   - For Windows:
+For Windows:
 
-     ```bash
-     venv\Scripts\activate
-     ```
+```bash
+venv\Scripts\activate
+```
 
-   - For macOS/Linux:
+For macOS/Linux:
 
-     ```bash
-     source venv/bin/activate
-     ```
+```bash
+source venv/bin/activate
+```
 
-4. **Install Dependencies**
+### 4. Install Dependencies
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+Install the required Python packages:
 
-5. **Initialize the Database**
+```bash
+pip install -r requirements.txt
+```
 
-   ```bash
-   python init_db.py
-   ```
+### 5. Initialize the Database
 
-6. **Run the Backend Server**
+Run the ORM to create tables in the database:
 
-   ```bash
-   uvicorn app.main:app --reload
-   ```
+```bash
+python init_db.py
+```
 
-#### Frontend
+### 6. Run the Backend Project
 
-1. **Navigate to the Frontend Directory**
+Start the FastAPI server:
 
-   ```bash
-   cd ../Frontend
-   ```
+```bash
+uvicorn app.main:app --reload
+```
 
-2. **Install Dependencies**
+## Additional Information
 
-   ```bash
-   npm install
-   ```
-
-3. **Set Up Environment Variables**
-
-   Copy the `.env.example` file to `.env` and configure the backend server URL.
-
-4. **Run the Frontend Development Server**
-
-   ```bash
-   npm run dev
-   ```
-
-## Project Structure
-
-- **Backend/**: Contains the FastAPI backend code.
-- **Frontend/**: Contains the Vite + React + TypeScript frontend code.
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- Ensure your PostgreSQL database is running and accessible.
+- Modify the `DATABASE_URL` in the `.env` file according to your database credentials.
+- Use `--reload` for development purposes to auto-reload the server on code changes.
