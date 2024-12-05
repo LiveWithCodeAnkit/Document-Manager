@@ -5,6 +5,9 @@ from typing import List, Optional
 from datetime import datetime
 from loguru import logger
 import os
+import agentql
+
+from playwright.sync_api import sync_playwright
 
 from .database import get_db
 from .models import Document
@@ -144,3 +147,49 @@ async def update_document(
     except Exception as e:
         logger.error(f"Error updating document {document_id}: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal server error")    
+
+# New scraping endpoint
+@app.post("/api/scrape")
+async def scrape_data(url: str):
+    """
+    Scrape data from a given URL using Playwright and AgentQL.
+    """
+    QUERY = """
+    {
+        cars(first 100)[] {
+            make
+            model
+            price
+            mileage
+            year
+            location
+            dealer_name
+            dealer_rating
+            car_url
+            car_image
+        }
+    }
+    """
+
+    try:
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch(headless=True)
+            page = agentql.wrap(browser.new_page())
+            page.goto(url)
+
+            for _ in range(2):
+                page.wait_for_page_ready_state()
+                page.keyboard.press("End")
+
+            response = page.query_data(QUERY)
+            browser.close()
+
+        if not response.get("cars"):
+            raise HTTPException(status_code=404, detail="No data found")
+
+        logger.info(f"Scraped data from URL: {url}")
+        return {"data": response["cars"]}
+
+    except Exception as e:
+        logger.error(f"Error scraping data from {url}: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal server error")
